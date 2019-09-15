@@ -1,0 +1,81 @@
+// Project Made By Tech Notebook
+
+int RedPin = 7;
+int YellowPin = 12;
+int GreenPin = 8;
+int onboard = 13;
+int trigger_pin = 2;
+int echo_pin = 3;
+long distance, pulse_duration;
+
+
+void setup() {
+  // Project Made By Tech Notebook
+  // put your setup code here, to run once:
+Serial.begin (9600);
+pinMode(trigger_pin, OUTPUT);
+pinMode(echo_pin, INPUT);
+digitalWrite(trigger_pin, LOW);
+pinMode(RedPin, OUTPUT);
+pinMode(YellowPin, OUTPUT);
+pinMode(GreenPin, OUTPUT);
+digitalWrite(RedPin, LOW);
+digitalWrite(YellowPin, LOW);
+digitalWrite(GreenPin, LOW);
+pinMode(onboard, OUTPUT);
+digitalWrite(onboard, LOW);
+}
+
+
+void loop() {
+  // Project Made By Tech Notebook
+  digitalWrite(RedPin, LOW);
+  digitalWrite(YellowPin, LOW);
+  digitalWrite(onboard, LOW);
+  digitalWrite(GreenPin, LOW);
+  digitalWrite(trigger_pin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigger_pin, LOW);
+  pulse_duration = pulseIn(echo_pin, HIGH);
+  distance = round(pulse_duration * 0.0171);
+  Serial.print(distance);
+
+  Serial.print("centimeters");
+  // Go to Tools ^ and then Serial Monitor to see the Real Time distance Reading
+  Serial.println();
+
+  
+  if (distance < 10) {
+    digitalWrite(RedPin, HIGH);
+    digitalWrite(YellowPin, LOW);
+    digitalWrite(onboard, LOW);
+    digitalWrite(GreenPin, LOW);
+  }
+
+  else if (distance < 20) {
+    digitalWrite(RedPin, LOW);
+    digitalWrite(YellowPin, HIGH);
+    digitalWrite(onboard, LOW);
+    digitalWrite(GreenPin, LOW);
+  }
+
+  else if (distance < 30) {
+    digitalWrite(RedPin, LOW);
+    digitalWrite(YellowPin, LOW);
+    digitalWrite(onboard, LOW);
+    digitalWrite(GreenPin, HIGH);
+  }
+
+  else if (distance < 3000) {
+    digitalWrite(RedPin, LOW);
+    digitalWrite(YellowPin, LOW);
+    digitalWrite(onboard, HIGH);
+    digitalWrite(GreenPin, LOW);
+  }
+
+
+
+  delay(500);
+  // Project Made By Tech Notebook
+
+}
